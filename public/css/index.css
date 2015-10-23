@@ -1,0 +1,33 @@
+body {
+	position: absolute;
+	/*margin: 0 auto;*/
+}
+
+.simon-button {
+	height: 100px;
+	width: 100px;
+	padding: 10px;
+	border: 5px solid black;
+}
+
+#simon-red {
+	background-color: #FF0000;
+}
+
+#simon-blue {
+	background-color: #0000FF;
+	margin-left: 150px;
+	margin-top: -149px;
+}
+
+#simon-yellow {
+	background-color: #FFFF00;
+	margin-left: 300px;
+	margin-top: -149px;
+}
+
+#simon-green {
+	background-color: #006600;
+	margin-left: 450px;
+	margin-top: -149px;
+}
