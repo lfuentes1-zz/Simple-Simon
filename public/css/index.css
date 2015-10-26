@@ -10,23 +10,24 @@ body {
 	border: 5px solid black;
 }
 
-#simon-red {
+/*simon-red*/
+.simon-red {
 	background-color: #FF0000;
 }
 
-#simon-blue {
+.simon-blue {
 	background-color: #0000FF;
 	margin-left: 150px;
 	margin-top: -149px;
 }
 
-#simon-yellow {
+.simon-yellow {
 	background-color: #FFFF00;
 	margin-left: 300px;
 	margin-top: -149px;
 }
 
-#simon-green {
+.simon-green {
 	background-color: #006600;
 	margin-left: 450px;
 	margin-top: -149px;

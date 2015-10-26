@@ -3,25 +3,57 @@
 <html>
 <head>
 	<title>Simple Simon Game</title>
-	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href="/css/index2.css">
 
 </head>
 <body>
+	<h1 id="game-heading">Mickey Mouse Simon Game</h1>
 
-	<h1>Simple Simon Game</h1>
+	<div class="mickey-head">
+		<div id="round-info">
+			<h3 id="round-number">Round</h3>
+			<h3 id="dynamic-round-number">0</h3>
+		</div>
+		<div class="mickey-left-ear">
+			<button class="start-button">Press Start</button>
+		</div>
+		<div class="mickey-right-ear">
+			<div id="player-messages">
+			</div>
+		</div>
 
-	<div class="simon-button" id="simon-red"></div>
-	<br>
-	<div class="simon-button" id="simon-blue"></div>
-	<br>
-	<div class="simon-button" id="simon-yellow"></div>
-	<br>
-	<div class="simon-button" id="simon-green"></div>
+		<!-- simon-red -->
+		<div class="simon-button simon-red" data-button-number="0"></div>
+		<div id="mickey-hand">
+			<img src="/img/mickeyhand.jpg">
+		</div>
+		<br>
 
-	<button id="start-button">Start</button>
+		<!-- simon blue -->
+		<div class="simon-button simon-blue" data-button-number="1"></div>
+		<div id="mickey-shoe">
+			<img src="/img/mickeyshoe.jpg">
+		</div>
+		<br>
+
+		<!-- simon yellow -->
+		<div class="simon-button simon-yellow" data-button-number="2"></div>
+		<div id="mickey-pants">
+			<img src="/img/mickeypants.jpg">
+		</div>
+		<br>
+
+		<!-- simon green -->
+		<div class="simon-button simon-green" data-button-number="3"></div>
+		<div id="mickey-head">
+			<img src="/img/mickeyhead.jpg">
+		</div>
+	</div>
+	
+	<!-- <button id="start-button">Start</button> -->
 	
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<!-- // <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 	<script src="/js/index.js"></script>
 
 
