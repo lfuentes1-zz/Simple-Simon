@@ -3,44 +3,98 @@ $(document).ready(function(){
 
 var simonSequence = [];
 var playerSequence = [];
+var userActive = false;
+var round = 0;
+var index = 0;
 
 function simonGeneratesSequence(){
 	var maxNumber = 4;
 	var simonButtons = $('.simon-button'); //store the entire DIV in simonButtons -jQuery
 	var randomNumber;
+	var index = 0;
+
+	updateRoundCounter();
 	
 	var randomNumber = Math.floor(Math.random() * maxNumber);
-
 	var randomColor = simonButtons[randomNumber];
 
 	$("#player-messages").fadeIn(3000, function() {
-    	$("#player-messages").html("Simon's Turn")
+		// console.log ("simon");
+    	$("#player-messages").html("Simon's Turn");
   	});
 
-	$(randomColor).animate({
+	//push the color into the simonSequence array
+	simonSequence.push(randomNumber);
+	console.log ("simonSequence array: " + simonSequence);
+
+	simonSequence.forEach(function(arrayValue, index){
+		setTimeout(function(){
+			$("[data-button-number='"+ arrayValue + "']").animate({
 				opacity: 0.50
-			}, 750).animate({
+			}, 50).animate({
 				opacity: 1.0
-			}, 750, function () {
-				//push the color into the simonSequence array
-				simonSequence.push(randomNumber);
-				console.log ("simonSequence array: " + simonSequence);
-			});
+			}, 1000);
+		}, index * 1000);
+	});
+	
+	setTimeout(function (){
+		$("#player-messages").fadeIn(5000, function() {  
+			// console.log ("player");
+			$("#player-messages").html("Player's Turn")
+		});
+	}, simonSequence.length * 1000);
+	
+	userActive = true;
 	// return simonButtons[randomNumber]; //Returns DIV 0..3 depending on the random #-JavaScript
 }
 
-function playerMatchesSequence(){
-	//allow the player to enter values within 10 seconds otherwise they are doomed
-	var buttonClicked;
+function matchingSequences(userClicked){
+	//make the comparison with simonArray
+	// var validSequence;
 
-	$("#player-messages").fadeIn(5000, function() {
-    	$("#player-messages").html("Player's Turn")
-  	});
+	if (simonSequence[index] != userClicked) {
+		console.log ("You lost, press start to try again!");
+		userActive = false;
+		// simonSequence = [];
+		playerSequence = [];
+		round = 0;
+		index = 0;
+	} else {
+		console.log("Player pressed correct color"); //continue
+		index++;
+	}
 
-	$(".simon-button").click( 
-		function(event) {
-			//This pushes the item twice into the array???
-			buttonClicked = $(this).attr("data-button-number");
+	//next round
+	if (index == simonSequence.length)
+	{
+		index = 0;
+		playerSequence = [];
+		setTimeout(function(){
+			simonGeneratesSequence();
+		}, 1000);
+	}
+	console.log ("<br");
+}
+
+function updateRoundCounter () {
+	round = round + 1;
+	$('#dynamic-round-number').html(round);
+}
+
+$(".start-button").click(
+function() {
+	simonGeneratesSequence();
+	simonSequence=[];
+});
+
+$(".simon-button").click( 
+	function(event) {
+		var buttonClicked;
+
+		if (userActive === true){
+			
+			buttonClicked = parseInt($(this).attr("data-button-number"));
+			// buttonClicked = parseInt(buttonClicked);
 
 			$(this).animate({
 				opacity: 0.50,
@@ -49,62 +103,9 @@ function playerMatchesSequence(){
 			}, 500, function () {
 				playerSequence.push(buttonClicked);
 				console.log ("playerSequence array: " + playerSequence);
+				//verify that the sequences match
+				matchingSequences(buttonClicked);
 			});
-			event.stopPropagation();
-
 		}
-	);		
-}
-
-function matchingSequences(){
-	console.log("matching sequences function");
-	//make the comparison with simonArray
-	if (playerSequence[playerSequence.length-1] === simonSequence[simonSequence.length-1]){
-		// var confirmed = confirm ("Are you ready for the next round?");
-		console.log("player pressed correct color");
-		return true;
-	} else {
-		console.log ("You lost, press start to try again!");
-		return false;
-	};
-}
-
-function updateRoundCounter (currentRound) {
-	$('#dynamic-round-number').html(currentRound++);
-	return currentRound++;
-}
-
-$(".start-button").click(
-function(event) {
-	var playerIsAwesome = true;
-	var round = 1;
-	// do {
-		//simon turn
-		simonGeneratesSequence();
-
-		//player turn
-	    playerMatchesSequence();
-    	event.stopPropagation();
-
-
-	    //verify that the sequences match
-	    playerIsAwesome = matchingSequences();
-	    if (playerIsAwesome === true){
-	    	round = updateRoundCounter(round);
-	    }
-	    else {
-	    	simonSequence = [];
-			playerSequence = [];
-			round = 1;
-			playerIsAwesome = true;
-	    }
-
-		//play the sequences again with another round
-
-	// } while (playerIsAwesome  == true);		
 });
-
-
-
-
 });
