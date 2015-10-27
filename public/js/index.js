@@ -18,8 +18,8 @@ function simonGeneratesSequence(){
 	var randomNumber = Math.floor(Math.random() * maxNumber);
 	var randomColor = simonButtons[randomNumber];
 
+	//simon's turn message
 	$("#player-messages").fadeIn(3000, function() {
-		// console.log ("simon");
     	$("#player-messages").html("Simon's Turn");
   	});
 
@@ -27,6 +27,7 @@ function simonGeneratesSequence(){
 	simonSequence.push(randomNumber);
 	console.log ("simonSequence array: " + simonSequence);
 
+	//animates the simon sequence
 	simonSequence.forEach(function(arrayValue, index){
 		setTimeout(function(){
 			$("[data-button-number='"+ arrayValue + "']").animate({
@@ -36,26 +37,34 @@ function simonGeneratesSequence(){
 			}, 1000);
 		}, index * 1000);
 	});
-	
+
+	//delay the players turn message	
 	setTimeout(function (){
 		$("#player-messages").fadeIn(5000, function() {  
-			// console.log ("player");
 			$("#player-messages").html("Player's Turn")
 		});
 	}, simonSequence.length * 1000);
 	
+	//user's turn
 	userActive = true;
 	// return simonButtons[randomNumber]; //Returns DIV 0..3 depending on the random #-JavaScript
 }
 
 function matchingSequences(userClicked){
 	//make the comparison with simonArray
-	// var validSequence;
 
+	console.log (simonSequence);
+	console.log (simonSequence[index]);
+	console.log (userClicked);
+	//check equality of arrays
 	if (simonSequence[index] != userClicked) {
+		//simon's turn message
+		$("#player-messages").fadeIn(3000, function() {
+    		$("#player-messages").html("Game Over!");
+  		});
 		console.log ("You lost, press start to try again!");
 		userActive = false;
-		// simonSequence = [];
+		simonSequence = [];
 		playerSequence = [];
 		round = 0;
 		index = 0;
@@ -65,7 +74,7 @@ function matchingSequences(userClicked){
 	}
 
 	//next round
-	if (index == simonSequence.length)
+	if ((index == simonSequence.length) && (userActive == true))
 	{
 		index = 0;
 		playerSequence = [];
@@ -84,7 +93,6 @@ function updateRoundCounter () {
 $(".start-button").click(
 function() {
 	simonGeneratesSequence();
-	simonSequence=[];
 });
 
 $(".simon-button").click( 
@@ -94,8 +102,8 @@ $(".simon-button").click(
 		if (userActive === true){
 			
 			buttonClicked = parseInt($(this).attr("data-button-number"));
-			// buttonClicked = parseInt(buttonClicked);
 
+			//animates the button clicked and pushes into playerSequence array
 			$(this).animate({
 				opacity: 0.50,
 			}, 500).animate ({

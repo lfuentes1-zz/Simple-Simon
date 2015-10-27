@@ -3,11 +3,6 @@
     src: url('/fonts/waltograph42.otf'); /*URL to font*/
 }
 
-/*body {
-	background-size: cover;
-	background-image: URL
-}*/
-
 #game-heading {
 	font-family: "mickeyfont";
 	font-size: 75px;
