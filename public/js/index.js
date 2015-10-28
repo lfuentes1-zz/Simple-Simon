@@ -9,6 +9,8 @@ var index = 0;
 
 function simonGeneratesSequence(){
 	var maxNumber = 4;
+	//the dollar sign is a visual to let programmers know that it is a jQuery variable 
+	// var $simonButtons = $('.simon-button'); //store the entire DIV in simonButtons -jQuery
 	var simonButtons = $('.simon-button'); //store the entire DIV in simonButtons -jQuery
 	var randomNumber;
 	var index = 0;
